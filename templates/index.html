@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Ticker Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="search-container">
+            <form method="POST" action="/" enctype="multipart/form-data">
+                <input type="text" name="ticker" placeholder="Enter Stock Ticker" required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        {% if img_url %}
+            <div class="image-container">
+                <img src="{{ img_url }}" alt="Stock Earnings Graph">
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
