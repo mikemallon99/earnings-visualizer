@@ -17,11 +17,11 @@ def index():
         new_filename = str(uuid.uuid4()) + ext
 
         # Move the file to static folder
-        new_img_path = os.path.join("static", new_filename)
+        new_img_path = os.path.join("/tmp", new_filename)
         os.rename(img_path, new_img_path)
 
         # Get URL for the new image
-        img_url = url_for('static', filename=new_filename)
+        img_url = url_for('/tmp', filename=new_filename)
     
     return render_template('index.html', img_url=img_url)
 
