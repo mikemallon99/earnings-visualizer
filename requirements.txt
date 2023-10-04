@@ -1,4 +1,4 @@
-kaleido==0.1.0.post1
+kaleido==0.1.0
 plotly
 Flask==3.0.0
 yfinance
