@@ -18,7 +18,7 @@ def index():
 
         # Move the file to static folder
         new_img_path = os.path.join("/tmp", new_filename)
-        os.rename(img_path, new_img_path)
+        os.replace(img_path, new_img_path)
 
         # Get URL for the new image
         img_url = url_for('get_image', filename=new_filename)
