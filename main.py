@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
     img_str = None
     if request.method == 'POST':
-        ticker = request.form.get('ticker').upper()
+        ticker = request.form.get('ticker').upper().strip()
         img_buf = create_img_from_ticker(ticker)  # Replace with actual function call
 
         # Convert bytes to base64 encoded string and create a Data URL
