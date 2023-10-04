@@ -1,6 +1,7 @@
 from typing import List, Tuple
 import yfinance as yf
 import plotly.graph_objects as go
+import plotly.io as pio
 
 
 class Node:
@@ -199,12 +200,12 @@ def convert_graph_to_plotly(graph: Graph, title: str, out_path: str):
         height=600,
         margin=dict(t=50, b=20, l=20, r=20),
     )
-    fig.write_image(out_path)
+    img_bytes = pio.to_image(fig, format="png")
+    return img_bytes
 
 
 def create_img_from_ticker(ticker):
     nvidia_report = get_report_from_ticker(ticker)
     nvidia_graph = make_graph_from_report(nvidia_report)
     img_path = "/tmp/ticker_img.png"
-    convert_graph_to_plotly(nvidia_graph, f"{ticker} Earnings Q2 2023", img_path)
-    return img_path
+    return convert_graph_to_plotly(nvidia_graph, f"{ticker} Earnings Q2 2023", img_path)

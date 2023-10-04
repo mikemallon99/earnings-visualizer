@@ -1,35 +1,21 @@
 from flask import Flask, render_template, request, send_file, url_for
 from earningsviz import *  # Import your existing graph code
-import os
-import uuid
+import base64
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    img_url = None
+    img_str = None
     if request.method == 'POST':
         ticker = request.form.get('ticker').upper()
-        img_path = create_img_from_ticker(ticker)  # Replace with actual function call
+        img_buf = create_img_from_ticker(ticker)  # Replace with actual function call
 
-        # Generate a unique filename for the new image
-        _, ext = os.path.splitext(img_path)
-        new_filename = str(uuid.uuid4()) + ext
-
-        # Move the file to static folder
-        new_img_path = os.path.join("/tmp", new_filename)
-        os.replace(img_path, new_img_path)
-
-        # Get URL for the new image
-        img_url = url_for('get_image', filename=new_filename)
+        # Convert bytes to base64 encoded string and create a Data URL
+        img_str = "data:image/png;base64," + base64.b64encode(img_buf).decode()
     
-    return render_template('index.html', img_url=img_url)
-
-
-@app.route('/images/<filename>')
-def get_image(filename):
-    return send_file(os.path.join("/tmp", filename), mimetype='image/png')
+    return render_template('index.html', img_url=img_str)
 
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=8080, debug=False)
+    app.run(host="127.0.0.1", port=8080, debug=True)
