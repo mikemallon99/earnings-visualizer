@@ -205,6 +205,6 @@ def convert_graph_to_plotly(graph: Graph, title: str, out_path: str):
 def create_img_from_ticker(ticker):
     nvidia_report = get_report_from_ticker(ticker)
     nvidia_graph = make_graph_from_report(nvidia_report)
-    img_path = "C:/Users/MMallon_DT/Pictures/test.png"
+    img_path = "test.png"
     convert_graph_to_plotly(nvidia_graph, f"{ticker} Earnings Q2 2023", img_path)
     return img_path
