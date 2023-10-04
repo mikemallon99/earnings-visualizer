@@ -21,9 +21,15 @@ def index():
         os.rename(img_path, new_img_path)
 
         # Get URL for the new image
-        img_url = url_for('/tmp', filename=new_filename)
+        img_url = url_for('get_image', filename=new_filename)
     
     return render_template('index.html', img_url=img_url)
+
+
+@app.route('/images/<filename>')
+def get_image(filename):
+    return send_file(os.path.join("/tmp", filename), mimetype='image/png')
+
 
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=8080, debug=False)
